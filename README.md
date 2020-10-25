@@ -1,5 +1,6 @@
-# News Recommendation CUPSAN model
+# News Recommendation CUPMAR model
 
-other models code is orginally from:
-https:// github.com/yusanshi/NewsRecommendation
+This is source code of my recent paper, submitted to WWW 2021:
+"Deep News Recommendation"
+
 
