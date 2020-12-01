@@ -42,9 +42,9 @@ class BaseConfig():
     use_pretrain_word_embedding = True
     log_tensorboard = False
     # paths
-    local = f'C:/Users/45027285/dev/datasets'
+    local = f'e:/dev/datasets'
     remote = f'/disks/sheng/scratch-ssd/dai/datasets/mind'
-    localize_path = remote
+    localize_path = local
     word_embedding_file = f'{localize_path}/glove.840B.300d.txt'
     checkpoint_dir = './checkpoint1'
     pretrained_word = '/pretrained_word_embedding.npy'
@@ -100,7 +100,7 @@ class BaseConfig():
         self.test_dir = self.small_dev_dir
 
 
-class DMCupsanConfig(BaseConfig):
+class DMCupmarConfig(BaseConfig):
     dataset_attributes = {
         "news": ['category', 'subcategory', 'title', 'abstract', 'title_entities', 'abstract_entities'],
         "record": ['user']
@@ -108,7 +108,7 @@ class DMCupsanConfig(BaseConfig):
     user_embedding_dim = 100
     num_attention_heads = 10
     query_vector_dim = 100
-    lpe_top_cate_num= 5 #how many top categories to keep as long term preferences
+    lpe_top_cate_num= 6 #how many top categories to keep as long term preferences
 
 
 class DMUserGruConfig(BaseConfig):

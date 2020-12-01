@@ -289,9 +289,9 @@ def time_since(since):
 def parse_arguments(parser):
     parser.add_argument('-m',
                         '--model',
-                        default='DMUserGru',
+                        default='DMCupmar',
                         choices=['NRMS', 'NAML', 'DKN', 'TANR', 'HiFiArk', 'FIM', 'LSTUR',
-                                 'DMCategory', 'DMUserGru','DMCateContext','DMCupsan'],
+                                 'DMCategory', 'DMUserGru','DMCateContext','DMCupmar'],
                         help='Model to train')
 
     parser.add_argument('-ds',

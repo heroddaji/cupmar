@@ -417,25 +417,25 @@ if __name__ == '__main__':
 
     print('Process data for training')
 
-    # print('Parse train behaviors')
-    # parse_behaviors(preconf,
-    #                 path.join(train_dir, 'behaviors.tsv'),
-    #                 path.join(train_dir, 'behaviors_parsed.tsv'),
-    #                 path.join(val_dir, 'behaviors.tsv'),
-    #                 path.join(train_dir, 'user2int.tsv'))
-    #
-    # print('Parse news')
-    # parse_news(preconf,
-    #            path.join(train_dir, 'news.tsv'),
-    #            path.join(train_dir, 'news_parsed.tsv'),
-    #            path.join(train_dir, 'category2int.tsv'),
-    #            path.join(train_dir, 'word2int.tsv'),
-    #            path.join(train_dir, 'entity2int.tsv'),
-    #            mode='train')
-    #
-    # # For validation in training
-    # copyfile(path.join(train_dir, 'news_parsed.tsv'),
-    #          path.join(val_dir, 'news_parsed.tsv'))
+    print('Parse train behaviors')
+    parse_behaviors(preconf,
+                    path.join(train_dir, 'behaviors.tsv'),
+                    path.join(train_dir, 'behaviors_parsed.tsv'),
+                    path.join(val_dir, 'behaviors.tsv'),
+                    path.join(train_dir, 'user2int.tsv'))
+
+    print('Parse news')
+    parse_news(preconf,
+               path.join(train_dir, 'news.tsv'),
+               path.join(train_dir, 'news_parsed.tsv'),
+               path.join(train_dir, 'category2int.tsv'),
+               path.join(train_dir, 'word2int.tsv'),
+               path.join(train_dir, 'entity2int.tsv'),
+               mode='train')
+
+    # For validation in training
+    copyfile(path.join(train_dir, 'news_parsed.tsv'),
+             path.join(val_dir, 'news_parsed.tsv'))
 
     print('Parse val behaviors')
     parse_behaviors_dev(preconf,
@@ -443,19 +443,19 @@ if __name__ == '__main__':
                         path.join(val_dir, 'behaviors_parsed.tsv'),
                         path.join(train_dir, 'user2int.tsv'))
 
-    # print('Generate word embedding')
-    # generate_word_embedding(
-    #     preconf,
-    #     preconf.word_embedding_file,
-    #     path.join(train_dir, 'pretrained_word_embedding.npy'),
-    #     path.join(train_dir, 'word2int.tsv'))
-    #
-    # print('Transform entity embeddings')
-    # transform_entity_embedding(
-    #     preconf,
-    #     path.join(train_dir, 'entity_embedding.vec'),
-    #     path.join(train_dir, 'pretrained_entity_embedding.npy'),
-    #     path.join(train_dir, 'entity2int.tsv'))
+    print('Generate word embedding')
+    generate_word_embedding(
+        preconf,
+        preconf.word_embedding_file,
+        path.join(train_dir, 'pretrained_word_embedding.npy'),
+        path.join(train_dir, 'word2int.tsv'))
+
+    print('Transform entity embeddings')
+    transform_entity_embedding(
+        preconf,
+        path.join(train_dir, 'entity_embedding.vec'),
+        path.join(train_dir, 'pretrained_entity_embedding.npy'),
+        path.join(train_dir, 'entity2int.tsv'))
 
     # todo: why do we need to do this transformation
     # print('Transform test data')
@@ -464,17 +464,17 @@ if __name__ == '__main__':
     #     path.join(test_dir, 'behaviors.tsv'),
     #     path.join(test_dir, 'truth.txt'))
 
-    # print('Parse dev behaviors')
-    # parse_behaviors_dev(preconf,
-    #                     path.join(dev_dir, 'behaviors.tsv'),
-    #                     path.join(dev_dir, 'behaviors_parsed.tsv'),
-    #                     path.join(train_dir, 'user2int.tsv'))
+    print('Parse dev behaviors')
+    parse_behaviors_dev(preconf,
+                        path.join(dev_dir, 'behaviors.tsv'),
+                        path.join(dev_dir, 'behaviors_parsed.tsv'),
+                        path.join(train_dir, 'user2int.tsv'))
 
-    # print('Parse dev news')
-    # parse_news(preconf,
-    #            path.join(test_dir, 'news.tsv'),
-    #            path.join(test_dir, 'news_parsed.tsv'),
-    #            path.join(train_dir, 'category2int.tsv'),
-    #            path.join(train_dir, 'word2int.tsv'),
-    #            path.join(train_dir, 'entity2int.tsv'),
-    #            mode='test')
+    print('Parse dev news')
+    parse_news(preconf,
+               path.join(test_dir, 'news.tsv'),
+               path.join(test_dir, 'news_parsed.tsv'),
+               path.join(train_dir, 'category2int.tsv'),
+               path.join(train_dir, 'word2int.tsv'),
+               path.join(train_dir, 'entity2int.tsv'),
+               mode='test')

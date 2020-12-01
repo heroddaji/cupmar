@@ -2,14 +2,14 @@ import torch
 import torch.nn as nn
 
 from model.DMBase.base import DMBase
-from model.DMCupsan.news_encoder import NewsEncoder
-from model.DMCupsan.user_encoder import UserEncoder
+from model.DMCupmar.news_encoder import NewsEncoder
+from model.DMCupmar.user_encoder import UserEncoder
 from model.general.click_predictor.dot_product import DotProductClickPredictor
 
 
-class DMCupsan(DMBase):
+class DMCupmar(DMBase):
     def __init__(self, config, pretrained_word_embedding=None, writer=None):
-        super(DMCupsan, self).__init__(config)
+        super(DMCupmar, self).__init__(config)
         self.news_encoder = NewsEncoder(self.config, pretrained_word_embedding)
         self.user_encoder = UserEncoder(self.config, self.news_encoder)
         self.click_predictor = DotProductClickPredictor()

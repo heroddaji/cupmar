@@ -137,7 +137,7 @@ def evaluate_dm(config,
                     'abstract_entities': [x for x in news2vector[news_id]['abstract_entities'].view(-1, 1)]
                 }
                 cnews.append(clicked_news_cate)
-            if config.model_name == 'DMUserGru' or config.model_name == 'DMCateContext' or config.model_name == 'DMCupsan':
+            if config.model_name == 'DMUserGru' or config.model_name == 'DMCateContext' or config.model_name == 'DMCupmar':
                 user_original_id = minibatch['user'][0]
                 if user2int.get(user_original_id, None) is None:
                     user2int[user_original_id] = len(user2int) + 1

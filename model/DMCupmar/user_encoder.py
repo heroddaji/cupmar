@@ -62,7 +62,7 @@ class UserEncoder(DMBase):
 
         lpe = self.get_lpe(user_embedding_tensor, batch_clicked_news)
 
-        output, hidden = self.gru(batch_clicked_news_tensor, lpe.unsqueeze(0))
+        output, hidden = self.gru(batch_clicked_news_tensor)
 
         final_user_vector = torch.cat((output.mean(dim=0), hidden.squeeze(0)), dim=1)
         final_user_vector = F.relu(self.linear(final_user_vector))
@@ -72,8 +72,34 @@ class UserEncoder(DMBase):
         '''
         get the long-term preferences of the user
         '''
-        #todo: why there is 0-category?
-        all_categories = torch.stack([news['category']for news in batch_clicked_news]).view(-1)
-        unqiue_categories, count_cate = torch.unique(all_categories, return_counts=True)
+        # todo: why there is 0-category?
+        all_categories = torch.stack([news['category'] for news in batch_clicked_news]).view(-1)
+        unique_categories, count_cate = torch.unique(all_categories, sorted=True, return_counts=True)
         all_subcategories = torch.stack([news['subcategory'] for news in batch_clicked_news]).view(-1)
-        return user_tensor
+        unique_subcategories, count_subcate = torch.unique(all_subcategories, sorted=True, return_counts=True)
+
+        # find lpe_top_cate_num of categories with the most count
+        topk = self.config.lpe_top_cate_num
+        if topk > len(unique_categories) or \
+                topk > len(unique_subcategories):
+            topk = min(len(unique_categories), len(unique_subcategories))
+
+        _, cate_lpe_indices = count_cate.topk(topk)
+        _, subcate_lpe_indices = count_subcate.topk(topk)
+
+        # remove zero index
+        cate_lpe_indices = cate_lpe_indices[cate_lpe_indices.nonzero()]
+        subcate_lpe_indices = subcate_lpe_indices[subcate_lpe_indices.nonzero()]
+
+        # get the categories embedding
+        cate_tensor = unique_categories[cate_lpe_indices]
+        subcate_tensor = unique_subcategories[subcate_lpe_indices]
+
+        cate_tensor = self.news_encoder.category_embedding(cate_tensor.to(self.device))
+        subcate_tensor = self.news_encoder.category_embedding(subcate_tensor.to(self.device))
+
+        #sum them up and batch it
+        lpe_tensor = torch.add(subcate_tensor, cate_tensor).squeeze().sum(dim=0).unsqueeze(0)
+        lpe_tensor = lpe_tensor.repeat(user_tensor.shape[0],1)
+
+        return lpe_tensor
