@@ -1,6 +1,5 @@
 # News Recommendation CUPMAR model
 
-This is source code of my recent paper, submitted to WWW 2021:
-"Deep News Recommendation"
+This is source code of my paper "Deep News Recommendation"
 
 
